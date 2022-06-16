@@ -1,2 +1,3 @@
-# practice
-to learn and practice git
+# Practice - *to learn and practice git*
+
+

@@ -1,4 +1,4 @@
-# Practice - *to learn and practice git*
-I am learning how to use Git/GitHub and am working towards getting comfortable using it
+# Practice - *to learn how to use GitHub and practice Python programming*
+I am learning how to program in Python and add my code to GitHub.
 
 

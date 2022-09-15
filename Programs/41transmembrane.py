@@ -41,38 +41,48 @@ def amphipathic_a_helix(protein):
 	search = False
 	sp = False
 	hydro = False
+
 	# test signal peptides of len 8 by calculating KD
-	for i in range(0, len(first_30aa),8):
+	for i in range(0, len(first_30aa)):
 		signal_peptide = first_30aa[i:i+8]
 		if (len(signal_peptide) == 8):
 			sp_kd = kd_calc(signal_peptide)
-		if (sp_kd > 2.5):
-			#print('found sp! ', signal_peptide)
-			sp = True
-			break
-		else: sp = False
-	# check for hydrophobic regions in same protein
-	for j in range(0,len(after_30aa),11):
-		hydrophobic_peptide = after_30aa[i:i+11]
-		if ( (len(hydrophobic_peptide) == 11) and 'P' not in hydrophobic_peptide):
-			hyd_kd = kd_calc(hydrophobic_peptide)
-			if (hyd_kd > 2.0):
-				#print('found hydrophobic! ',hydrophobic_peptide)
-				hydro = True
+			#print('sp: ', signal_peptide, sp_kd)
+			if (sp_kd > 2.5): 
+				sp = True
+				#print('sp found!', signal_peptide, sp_kd)
 				break
-			else: hydro = False
-	print(sp, hydro)
-	if (sp==True or hydro==True):
-		return True
-		print('amphipathic!')
-	else:
-		return False
-
+			else:
+				continue
+			# check for hydrophobic regions in same protein
+	if (sp == True):
+		for j in range(0,len(after_30aa)):
+			hydrophobic_peptide = after_30aa[j:j+11]
+			if((len(hydrophobic_peptide) == 11) and 'P' not in hydrophobic_peptide):
+				hyd_kd = kd_calc(hydrophobic_peptide)
+				#print('hyd_kd: ', hyd_kd)
+				if (hyd_kd > 2.0): 
+					hydro = True
+					#print('hydro found!',hydrophobic_peptide,hyd_kd)
+					break
+				else: 
+					hydro = False
+					continue
+		if (sp==True and hydro==True):
+			#print('amphipathic!')
+			return True
+		else:
+			return False
+			#print('found sp! ', signal_peptide)
 
 # read in proteins from file
 
 with open(sys.argv[1]) as fp:
 	lines = fp.readlines()
+	
+#	test = ''.join(lines[50:57])
+#	print(test)
+#	amphipathic_a_helix(test)
 	
 	for i in range(len(lines)):
 		if lines[i].startswith('>'):

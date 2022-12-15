@@ -24,14 +24,11 @@ with open(sys.argv[1]) as file:
 	# remove '\n' character from lines
 	for i in range(len(lines)):
 		lines[i] = lines[i].replace('\n','')
-	#print(lines) 								DELETE
 	sequence = ''.join(lines[1:])
-	#print(len(sequence))   					DELETE
 	
 	# for each kmer of size k
 	for i in range(len(sequence)-(k-1)):
 		kmer = sequence[i:i+k]
-		#print(i, i+k, kmer)					DELETE
 		
 		# check array if already found
 		# if found, add the count of that kmer by 1
